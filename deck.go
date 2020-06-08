@@ -79,8 +79,10 @@ func newDeckFromFile(filename string) deck {
 }
 
 func (d deck) shuffle() {
-	s := time.Now().UnixNano()
-	source := rand.NewSource(s)
+	// use number of nanoseconds since the epoch
+	// as a seed for a new rand instance
+	seed := time.Now().UnixNano()
+	source := rand.NewSource(seed)
 	r := rand.New(source)
 
 	for i := range d {
